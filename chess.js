@@ -3,6 +3,35 @@ goog.global = this;
 goog.DEBUG = true;
 goog.LOCALE = "en";
 goog.evalWorksForGlobals_ = null;
+var chessboard =new Array();
+chessboard[9]=new Array(["車"],["馬"],["象"],["士"],["將"],["士"],["象"],["馬"],["車"]);
+chessboard[8]=new Array(["車"],["空"],["空"],["車"],["士"],["空"],["車"],["空"],["車"]);
+chessboard[7]=new Array(["車"],["砲"],["空"],["砲"],["空"],["砲"],["空"],["砲"],["車"]);
+chessboard[6]=new Array(["卒"],["卒"],["卒"],["卒"],["卒"],["卒"],["卒"],["卒"],["卒"]);
+chessboard[5]=new Array(["砲"],["馬"],["空"],["馬"],["空"],["馬"],["空"],["馬"],["砲"]);
+chessboard[0]=new Array(["俥"],["傌"],["相"],["仕"],["帥"],["仕"],["相"],["傌"],["俥"]);
+chessboard[1]=new Array(["俥"],["空"],["空"],["俥"],["士"],["空"],["俥"],["空"],["俥"]);
+chessboard[2]=new Array(["俥"],["炮"],["空"],["炮"],["空"],["炮"],["空"],["炮"],["俥"]);
+chessboard[3]=new Array(["兵"],["兵"],["兵"],["兵"],["兵"],["兵"],["兵"],["兵"],["兵"]);
+chessboard[4]=new Array(["炮"],["傌"],["空"],["傌"],["空"],["傌"],["空"],["傌"],["炮"]);
+var step=0;
+function addText(x, y, c, d){
+    var txt=document.createElement("input");
+    txt.type="text";
+    //txt.value=chessboard[x][y]＋'x='+x+',y＝'+y+chessboard[c][d]+',c='+c+',='+d;
+    step=step+1;
+    txt.value=step+":"+chessboard[y][x]+"x="+x+",y＝"+y+",c="+c+",="+d;
+    var div=document.getElementById("disDiv");
+    div.appendChild(txt);
+    //alert(chessboard[x][y]＋"x="+x+",y＝"+y+chessboard[c][d]+",c="+c+",="+d);
+    //alert("x="+x+",y＝"+y+",c="+c+",="+d);
+
+}
+function chessboard_update(x, y, c, d){
+    chessboard[d][c]=chessboard[y][x];
+    chessboard[y][x]="空";
+}
+
 goog.provide = function(a) {
     if (!COMPILED) {
         if (goog.getObjectByName(a)&&!goog.implicitNamespaces_[a])
@@ -5263,8 +5292,14 @@ bq.Chessboard.prototype.handleClick_ = function(a) {
         if (b) {
             var c = Math.floor((a.offsetX - bq.ChessboardRenderer.X) / bq.ChessboardRenderer.Step + 0.5), d = Math.floor((a.offsetY - bq.ChessboardRenderer.Y) / bq.ChessboardRenderer.Step + 0.5);
             this.movePiece(this.x_, this.y_, c, d);
+            //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
+            //document.write(chessboard[this.x_][this.y_]);
+            addText(this.x_, this.y_, c, d);
+            chessboard_update(this.x_, this.y_, c, d);
             this.y_ = this.x_ =- 1;
-            b.setSelected(false)
+            b.setSelected(false);
+
+            //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
         }
     } else {
         var e;
