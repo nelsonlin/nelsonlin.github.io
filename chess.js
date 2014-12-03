@@ -5286,18 +5286,69 @@ bq.Chessboard.prototype.enterDocument = function() {
 bq.Chessboard.prototype.getSelectedPiece = function() {
     return this.x_==-1 || this.y_==-1 ? null : this.grid_[this.y_][this.x_]
 };
+// bq.Chessboard.prototype.handleClick_ = function(a) {
+//     var b = this.getSelectedPiece();
+//     if (a.target == this.element_) {
+//         if (b) {
+//             var c = Math.floor((a.offsetX - bq.ChessboardRenderer.X) / bq.ChessboardRenderer.Step + 0.5), d = Math.floor((a.offsetY - bq.ChessboardRenderer.Y) / bq.ChessboardRenderer.Step + 0.5);
+//             this.movePiece(this.x_, this.y_, c, d);
+//             //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
+//             //document.write(chessboard[this.x_][this.y_]);
+//             addText(this.x_, this.y_, c, d);
+//             chessboard_update(this.x_, this.y_, c, d);
+//             this.y_ = this.x_ =- 1;
+//             b.setSelected(false);
+
+//             //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
+//         }
+//     } else {
+//         var e;
+//         for (d = 0; d < 10; d++) {
+//             var f = false;
+//             for (c = 0; c < 9; c++)
+//                 if ((e = this.grid_[d][c]) && e.getElement() == a.target) {
+//                     f = true;
+//                     break
+//                 }
+//             if (f)
+//                 break
+//         }
+//         if (b)
+//             if (b == e) {
+//                 e.setSelected(false);
+//                 this.y_ = this.x_ =- 1
+//             } else {
+//                 if (e.getColor() != b.getColor()) {
+//                     e.dispose();
+//                     this.grid_[d][c] = null;
+//                     this.movePiece(this.x_, this.y_, c, d);
+//                     this.y_ = this.x_ =- 1
+//                 } else {
+//                     this.x_ = c;
+//                     this.y_ = d;
+//                     e.setSelected(true)
+//                 }
+//                 b.setSelected(false)
+//             } else {
+//             this.x_ = c;
+//             this.y_ = d;
+//             e.setSelected(true)
+//         }
+//     }
+// };
 bq.Chessboard.prototype.handleClick_ = function(a) {
     var b = this.getSelectedPiece();
     if (a.target == this.element_) {
         if (b) {
+            // no piece here
             var c = Math.floor((a.offsetX - bq.ChessboardRenderer.X) / bq.ChessboardRenderer.Step + 0.5), d = Math.floor((a.offsetY - bq.ChessboardRenderer.Y) / bq.ChessboardRenderer.Step + 0.5);
-            this.movePiece(this.x_, this.y_, c, d);
+            // this.movePiece(this.x_, this.y_, c, d);
             //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
             //document.write(chessboard[this.x_][this.y_]);
-            addText(this.x_, this.y_, c, d);
-            chessboard_update(this.x_, this.y_, c, d);
-            this.y_ = this.x_ =- 1;
-            b.setSelected(false);
+            //addText(this.x_, this.y_, c, d);
+            // chessboard_update(this.x_, this.y_, c, d);
+            // this.y_ = this.x_ =- 1;
+            // b.setSelected(false);
 
             //document.write(chessboard[this.x_][this.y_]＋"x="+this.x_+",y＝"+this.y_+chessboard[c][d]+",c="+c+",="+d);
         }
@@ -5322,11 +5373,16 @@ bq.Chessboard.prototype.handleClick_ = function(a) {
                     e.dispose();
                     this.grid_[d][c] = null;
                     this.movePiece(this.x_, this.y_, c, d);
+                    step=step+1;
+                    addText(this.x_, this.y_, c, d);
+                    chessboard_update(this.x_, this.y_, c, d);
                     this.y_ = this.x_ =- 1
                 } else {
+                    //alert("the same color!");
                     this.x_ = c;
                     this.y_ = d;
                     e.setSelected(true)
+                    this.y_ = this.x_ =- 1
                 }
                 b.setSelected(false)
             } else {
