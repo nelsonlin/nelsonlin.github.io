@@ -65,6 +65,8 @@ bq.Chesspiece.Face = {
   PAO: 5,
   BING: 6
 };
+//將是帥，士是仕，象是相，車是車，馬是馬，炮是炮，卒是兵
+//4,3,2,0,1,6,5
 
 /**
  * @type {number} The color of this piece.
@@ -105,3 +107,40 @@ bq.Chesspiece.prototype.setPosition = function(left, top) {
   if(this.isInDocument())
     this.getRenderer().setPosition(this.getElement(), left, top);
 };
+
+// Hotkey mapping for selecting pieces
+document.addEventListener('keydown', function(event) {
+  switch(event.key.toLowerCase()) {
+    case 'c':
+      selectPiece(bq.Chesspiece.Face.CHE);
+      break;
+    case 'm':
+      selectPiece(bq.Chesspiece.Face.MA);
+      break;
+    case 'x':
+      selectPiece(bq.Chesspiece.Face.XIANG);
+      break;
+    case 's':
+      selectPiece(bq.Chesspiece.Face.SHI);
+      break;
+    case 'j':
+      selectPiece(bq.Chesspiece.Face.JIANG);
+      break;
+    case 'p':
+      selectPiece(bq.Chesspiece.Face.PAO);
+      break;
+    case 'b':
+      selectPiece(bq.Chesspiece.Face.BING);
+      break;
+  }
+});
+
+/**
+ * Selects a chess piece based on the given face type.
+ * @param {number} face The face type of the chess piece.
+ */
+function selectPiece(face) {
+  // Implement the logic to select the piece based on the face type
+  console.log('Selected piece:', face);
+  // Add your selection logic here
+}
